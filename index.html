@@ -1,0 +1,409 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FILMORA | دنیای فیلم و سریال</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
+
+:root{
+  --bg:#080b12;
+  --panel:#111725;
+  --panel2:#192235;
+  --gold:#e8b84b;
+  --text:#f5f6fa;
+  --muted:#9ca8ba;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:'Vazirmatn',Tahoma,sans-serif;
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+header{
+  height:76px;padding:0 6%;display:flex;align-items:center;
+  justify-content:space-between;background:#090e18;
+  border-bottom:1px solid #202a3b;position:sticky;top:0;z-index:20;
+}
+.logo{font-size:27px;font-weight:900;color:var(--gold);letter-spacing:2px}
+nav{display:flex;gap:25px}
+nav a{color:#d5dbea;text-decoration:none;font-size:14px}
+nav a:hover{color:var(--gold)}
+.header-btn{
+  border:1px solid var(--gold);background:transparent;
+  color:var(--gold);padding:9px 17px;border-radius:9px
+}
+.hero{
+  min-height:410px;padding:65px 8%;display:flex;align-items:center;
+  background:
+  linear-gradient(90deg,rgba(8,11,18,.2),#080b12 95%),
+  linear-gradient(0deg,#080b12 0%,transparent 65%),
+  url('https://image.tmdb.org/t/p/original/8b8R8l88Qje9dn9OE8PY05Nxl1X.jpg') center/cover;
+}
+.hero-content{max-width:620px}
+.tag{color:var(--gold);font-size:13px;font-weight:bold}
+.hero h1{font-size:46px;margin:12px 0}
+.hero p{color:#d1d7e2;line-height:2}
+.primary{
+  background:var(--gold);color:#16120a;border:0;
+  padding:12px 23px;border-radius:9px;font-weight:bold;
+}
+.secondary{
+  background:#202b3e;color:white;border:1px solid #46536a;
+  padding:12px 23px;border-radius:9px;margin-right:8px;
+}
+main{padding:25px 6% 70px}
+.toolbar{
+  display:flex;gap:12px;flex-wrap:wrap;margin:15px 0 30px;
+}
+.toolbar input,.toolbar select{
+  background:var(--panel);color:white;border:1px solid #2b3548;
+  padding:12px 15px;border-radius:9px;min-width:180px;
+}
+.toolbar input{flex:1}
+.section{margin:38px 0}
+.section-head{
+  display:flex;align-items:center;justify-content:space-between;
+  border-right:4px solid var(--gold);padding-right:13px;margin-bottom:18px;
+}
+.section-head h2{font-size:21px;margin:0}
+.section-head span{font-size:12px;color:var(--muted)}
+.grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));
+  gap:18px;
+}
+.card{
+  background:var(--panel);border:1px solid #202b3d;
+  border-radius:12px;overflow:hidden;transition:.25s;position:relative;
+}
+.card:hover{transform:translateY(-6px);border-color:var(--gold)}
+.poster{width:100%;height:235px;object-fit:cover;background:#202b3d;display:block}
+.card-info{padding:11px}
+.card h3{font-size:14px;margin:0 0 7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta{color:var(--muted);font-size:11px}
+.card-actions{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.details-btn{
+  border:0;background:#25334a;color:white;padding:6px 10px;
+  border-radius:7px;font-size:11px;
+}
+.fav{
+  border:0;background:transparent;color:#aab3c2;font-size:19px;
+}
+.fav.active{color:#ff6684}
+.empty{color:var(--muted);padding:30px;text-align:center;grid-column:1/-1}
+footer{
+  border-top:1px solid #202a3b;padding:30px 6%;text-align:center;
+  color:var(--muted);font-size:13px;line-height:2;
+}
+.modal{
+  position:fixed;inset:0;background:#000c;z-index:50;
+  display:none;align-items:center;justify-content:center;padding:18px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:#111a29;border:1px solid #34435c;border-radius:15px;
+  width:min(700px,100%);max-height:90vh;overflow:auto;padding:22px;
+}
+.modal-top{display:flex;gap:20px}
+.modal-poster{width:170px;max-width:35%;height:245px;object-fit:cover;border-radius:10px}
+.modal h2{margin-top:0;color:var(--gold)}
+.modal p{line-height:2;color:#c3ccda}
+.close{float:left;background:#29354a;color:white;border:0;padding:7px 12px;border-radius:7px}
+.pill{display:inline-block;background:#25334a;color:#eac66f;padding:5px 10px;border-radius:20px;font-size:11px;margin:3px}
+@media(max-width:650px){
+  header{padding:0 4%;height:65px}
+  nav{gap:10px}nav a{font-size:11px}
+  .logo{font-size:21px}
+  .header-btn{display:none}
+  .hero{min-height:350px;padding:45px 6%}
+  .hero h1{font-size:34px}
+  main{padding:20px 4%}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .poster{height:220px}
+  .modal-top{gap:12px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">FILMORA</div>
+  <nav>
+    <a href="#home">خانه</a>
+    <a href="#cinema">فیلم‌ها</a>
+    <a href="#animation">انیمیشن</a>
+    <a href="#series">سریال</a>
+  </nav>
+  <button class="header-btn" onclick="showFavorites()">♥ علاقه‌مندی‌ها</button>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="tag">به دنیای سینما خوش آمدید</div>
+    <h1>هر داستان، یک جهان تازه</h1>
+    <p>
+      در FILMORA دنیایی از فیلم‌های سینمایی، انیمیشن‌ها و سریال‌ها را کشف کن.
+      جست‌وجو کن، آثار مورد علاقه‌ات را پیدا کن و به فهرست محبوب‌ها اضافه کن.
+    </p>
+    <button class="primary" onclick="document.getElementById('cinema').scrollIntoView({behavior:'smooth'})">مشاهده آرشیو</button>
+    <button class="secondary" onclick="showFavorites()">علاقه‌مندی‌ها ♥</button>
+  </div>
+</section>
+
+<main>
+  <div class="toolbar">
+    <input id="search" type="search" placeholder="نام فیلم، انیمیشن یا سریال را جست‌وجو کن...">
+    <select id="genre">
+      <option value="all">همه ژانرها</option>
+      <option>اکشن</option><option>ماجراجویی</option>
+      <option>علمی تخیلی</option><option>درام</option>
+      <option>کمدی</option><option>انیمیشن</option>
+      <option>فانتزی</option><option>معمایی</option>
+    </select>
+    <select id="sort">
+      <option value="default">ترتیب پیش‌فرض</option>
+      <option value="az">الفبایی: آ تا ی</option>
+      <option value="za">الفبایی: ی تا آ</option>
+      <option value="new">جدیدترین سال</option>
+      <option value="old">قدیمی‌ترین سال</option>
+    </select>
+  </div>
+
+  <div class="section" id="favorites-section" style="display:none">
+    <div class="section-head"><h2>♥ علاقه‌مندی‌های من</h2><span id="fav-count"></span></div>
+    <div class="grid" id="favorites-grid"></div>
+  </div>
+
+  <section class="section" id="cinema">
+    <div class="section-head"><h2>🎬 فیلم‌های سینمایی</h2><span id="cinema-count"></span></div>
+    <div class="grid" id="cinema-grid"></div>
+  </section>
+
+  <section class="section" id="animation">
+    <div class="section-head"><h2>🐉 دنیای انیمیشن</h2><span id="animation-count"></span></div>
+    <div class="grid" id="animation-grid"></div>
+  </section>
+
+  <section class="section" id="series">
+    <div class="section-head"><h2>📺 سریال‌ها</h2><span id="series-count"></span></div>
+    <div class="grid" id="series-grid"></div>
+  </section>
+</main>
+
+<div class="modal" id="modal" onclick="closeOutside(event)">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal()">بستن ✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="logo">FILMORA</div>
+  <p>یک جهان بزرگ از فیلم، انیمیشن و سریال</p>
+  <p>این وب‌سایت یک آرشیو معرفی آثار است و پخش مستقیم فیلم ارائه نمی‌کند.</p>
+  <p>© 2026 FILMORA — تمام حقوق محفوظ است.</p>
+</footer>
+
+<script>
+const cinemaMovies = [
+["Inception","تلقین",2010,"علمی تخیلی","یک دزد حرفه‌ای وارد دنیای رؤیاها می‌شود.","https://image.tmdb.org/t/p/w500/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg"],
+["Interstellar","میان‌ستاره‌ای",2014,"علمی تخیلی","سفری شگفت‌انگیز برای یافتن آینده‌ای برای انسان.","https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg"],
+["The Avengers","انتقام‌جویان",2012,"اکشن","گروهی از قهرمانان برای نجات زمین متحد می‌شوند.","https://image.tmdb.org/t/p/w500/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg"],
+["Avengers: Endgame","پایان بازی",2019,"اکشن","قهرمانان برای بازگرداندن تعادل تلاش می‌کنند.","https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg"],
+["The Batman","بتمن",2022,"اکشن","بتمن با معمایی تاریک در شهر گاتهام روبه‌رو می‌شود.","https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpooo50r9T25onhq.jpg"],
+["Dune","تلماسه",2021,"علمی تخیلی","سفری در سیاره‌ای بیابانی و سرنوشت‌ساز.","https://image.tmdb.org/t/p/w500/d5NXSklXo0qyIYkgV94XAgMIckC.jpg"],
+["Oppenheimer","اوپنهایمر",2023,"درام","داستان زندگی دانشمندی در یکی از مهم‌ترین دوره‌های تاریخ.","https://image.tmdb.org/t/p/w500/ptpr0kGAckfQkJeJIt8st5dglvd.jpg"],
+["Avatar","آواتار",2009,"ماجراجویی","ماجرایی در جهانی سرشار از شگفتی و طبیعت.","https://image.tmdb.org/t/p/w500/kyeqWdyUXW608qlYkRqosgbbJyK.jpg"],
+["Titanic","تایتانیک",1997,"درام","داستانی ماندگار در سفری دریایی.","https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg"],
+["The Matrix","ماتریکس",1999,"علمی تخیلی","مردی با حقیقتی غیرمنتظره درباره جهان روبه‌رو می‌شود.","https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg"],
+["Jurassic Park","پارک ژوراسیک",1993,"ماجراجویی","پارکی شگفت‌انگیز با موجوداتی از گذشته.","https://image.tmdb.org/t/p/w500/b1xCNnyrPebIc7EWNZIa6jhb1Ww.jpg"],
+["Spider-Man: No Way Home","مرد عنکبوتی: راهی به خانه نیست",2021,"اکشن","ماجرایی تازه برای مرد عنکبوتی.","https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg"],
+["Guardians of the Galaxy","نگهبانان کهکشان",2014,"ماجراجویی","گروهی متفاوت در دل کهکشان متحد می‌شوند.","https://image.tmdb.org/t/p/w500/r7vmZjiyZw9rpJMQJdXpjgiCOk9.jpg"],
+["Iron Man","مرد آهنی",2008,"اکشن","آغاز داستان یکی از قهرمانان مشهور.","https://image.tmdb.org/t/p/w500/78lPtwv72eTNqFW9COBYI0dWDJa.jpg"],
+["Doctor Strange","دکتر استرنج",2016,"فانتزی","جراح مشهوری وارد دنیایی جادویی می‌شود.","https://image.tmdb.org/t/p/w500/uGBVj3bEbCoZbDjjl9wTxcygko1.jpg"],
+["Top Gun: Maverick","تاپ گان: ماوریک",2022,"اکشن","بازگشت خلبانی باتجربه به آسمان.","https://image.tmdb.org/t/p/w500/62HCnUTziyWcpDaBO2i1DX17ljH.jpg"],
+["The Martian","مریخی",2015,"علمی تخیلی","تلاش برای بقا در سیاره سرخ.","https://image.tmdb.org/t/p/w500/5aGhaIHYuQbqlHWvWYqMCnj40y2.jpg"],
+["Ready Player One","بازیکن شماره یک آماده",2018,"علمی تخیلی","ماجراجویی در دنیایی مجازی.","https://image.tmdb.org/t/p/w500/pU1ULUq8D3iRxl1fdX2lZIzdHuI.jpg"],
+["Jumanji","جومانجی",1995,"ماجراجویی","یک بازی رومیزی عجیب، ماجرایی بزرگ می‌سازد.","https://image.tmdb.org/t/p/w500/vzmL6fP7aPKNKPRTFnZmiUfciyV.jpg"],
+["The Grand Budapest Hotel","هتل بزرگ بوداپست",2014,"کمدی","ماجرایی متفاوت در هتلی مشهور.","https://image.tmdb.org/t/p/w500/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg"],
+["The Prestige","پرستیژ",2006,"معمایی","رقابتی رازآلود میان دو شعبده‌باز.","https://image.tmdb.org/t/p/w500/5MXyQfz8xUP3dIFPTubhTsbFY6N.jpg"],
+["Gladiator","گلادیاتور",2000,"درام","داستانی تاریخی درباره شجاعت و عدالت.","https://image.tmdb.org/t/p/w500/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg"],
+["The Lord of the Rings","ارباب حلقه‌ها",2001,"فانتزی","سفری بزرگ برای نابودی حلقه‌ای قدرتمند.","https://image.tmdb.org/t/p/w500/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg"],
+["Harry Potter and the Philosopher's Stone","هری پاتر و سنگ جادو",2001,"فانتزی","آغاز ماجراهای جادویی یک دانش‌آموز.","https://image.tmdb.org/t/p/w500/wuMc08IPKEatf9rnMNXvIDxqP4W.jpg"],
+["The Truman Show","نمایش ترومن",1998,"درام","مردی درباره دنیای اطراف خود پرسش‌هایی پیدا می‌کند.","https://image.tmdb.org/t/p/w500/vuza0WqY239yBXOadKlGwJsZJFE.jpg"],
+["Back to the Future","بازگشت به آینده",1985,"علمی تخیلی","سفری هیجان‌انگیز در زمان.","https://image.tmdb.org/t/p/w500/fNOH9f1aA7XRTzl1sAOx9iF553Q.jpg"],
+["The Lion King","شیرشاه",1994,"ماجراجویی","داستان رشد و مسئولیت در سرزمین حیوانات.","https://image.tmdb.org/t/p/w500/sKCr78MXSLixwmZ8DyJLrpMsd15.jpg"],
+["The Shawshank Redemption","رستگاری در شاوشنک",1994,"درام","داستان امید و دوستی.","https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg"],
+["Knives Out","چاقوکشی",2019,"معمایی","کارآگاهی مشهور یک معمای خانوادگی را بررسی می‌کند.","https://image.tmdb.org/t/p/w500/pThyQovXQrw2m0s9x82twj48Jq4.jpg"],
+["Free Guy","مرد آزاد",2021,"کمدی","یک شخصیت بازی متوجه دنیای عجیب اطرافش می‌شود.","https://image.tmdb.org/t/p/w500/xmbU4JTUm8rsdtn7Y3Fcm30GpeT.jpg"]
+];
+
+const animations = [
+["Toy Story","داستان اسباب‌بازی",1995,"انیمیشن","اسباب‌بازی‌ها وقتی انسان‌ها نیستند زندگی خودشان را دارند.","https://image.tmdb.org/t/p/w500/uXDfjJbdP4ijW5hWSBrPrlKpxab.jpg"],
+["Finding Nemo","در جست‌وجوی نمو",2003,"انیمیشن","ماجرای سفری دریایی برای پیدا کردن نمو.","https://image.tmdb.org/t/p/w500/eHuGQ10FUzK1mdOY69wF5pGgEf5.jpg"],
+["Coco","کوکو",2017,"انیمیشن","پسری جوان وارد دنیایی رنگارنگ و شگفت‌انگیز می‌شود.","https://image.tmdb.org/t/p/w500/gGEsBPAijhVUFoiNpgZXqRVWJt2.jpg"],
+["Inside Out","درون و بیرون",2015,"انیمیشن","داستان احساسات در ذهن یک دختر.","https://image.tmdb.org/t/p/w500/2H1TmgdfNtsKlU9jKdeNyYL5y8T.jpg"],
+["Inside Out 2","درون و بیرون ۲",2024,"انیمیشن","احساسات تازه‌ای وارد ذهن رایلی می‌شوند.","https://image.tmdb.org/t/p/w500/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg"],
+["Up","بالا",2009,"انیمیشن","سفری با خانه‌ای پر از بادکنک.","https://image.tmdb.org/t/p/w500/mFvoEwSfLqbcWwFsDjQebn9bzFe.jpg"],
+["WALL-E","وال-ئی",2008,"انیمیشن","رباتی کوچک در زمین آینده ماجرایی بزرگ دارد.","https://image.tmdb.org/t/p/w500/hbhFnRzzg6ZDmm8YAmxBnQpQIPh.jpg"],
+["Ratatouille","راتاتویی",2007,"انیمیشن","موشی با علاقه به آشپزی رؤیایی بزرگ دارد.","https://image.tmdb.org/t/p/w500/t3vaWRPSf6WjDSamIkKDs1iQWna.jpg"],
+["Shrek","شرک",2001,"انیمیشن","غولی مهربان وارد ماجرایی خنده‌دار می‌شود.","https://image.tmdb.org/t/p/w500/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg"],
+["How to Train Your Dragon","چگونه اژدهای خود را تربیت کنیم",2010,"انیمیشن","پسری جوان دوستی شگفت‌انگیزی با یک اژدها پیدا می‌کند.","https://image.tmdb.org/t/p/w500/ygGmAO60t8GyqUo9xYeYxSZAR3b.jpg"],
+["Frozen","یخ‌زده",2013,"انیمیشن","دو خواهر و ماجرایی در سرزمینی برفی.","https://image.tmdb.org/t/p/w500/mINJaa34MtknCYl5AjtNJzWj8cD.jpg"],
+["Zootopia","زوتوپیا",2016,"انیمیشن","خرگوشی پلیس در شهری پر از حیوانات.","https://image.tmdb.org/t/p/w500/hlK0e0wAQ3VLuJcsfIYPvb4JVud.jpg"],
+["Moana","موانا",2016,"انیمیشن","دختری شجاع راهی سفری دریایی می‌شود.","https://image.tmdb.org/t/p/w500/4JeejGugONWpJkbnvL12hVoYEDa.jpg"],
+["The Incredibles","شگفت‌انگیزان",2004,"انیمیشن","خانواده‌ای با توانایی‌های ویژه.","https://image.tmdb.org/t/p/w500/2LqaLgk4Z226KkgPJuiOQ58wvrm.jpg"],
+["Monsters Inc.","کارخانه هیولاها",2001,"انیمیشن","دو هیولای دوست‌داشتنی در کارخانه‌ای عجیب کار می‌کنند.","https://image.tmdb.org/t/p/w500/sgheSKxZkttIe8ONsf2sWXPgip3.jpg"],
+["Kung Fu Panda","پاندای کونگ‌فوکار",2008,"انیمیشن","پاندایی به قهرمانی غیرمنتظره تبدیل می‌شود.","https://image.tmdb.org/t/p/w500/wWt4JYXTg5Wr3xBW2phBrMKgp3x.jpg"],
+["Despicable Me","من نفرت‌انگیز",2010,"انیمیشن","ماجرای گرو و مینیون‌های بامزه.","https://image.tmdb.org/t/p/w500/9lOloREsAhBu0pEtU0BgeR1rHyo.jpg"],
+["Spider-Man: Into the Spider-Verse","مرد عنکبوتی: به درون دنیای عنکبوتی",2018,"انیمیشن","مایلز وارد دنیایی پر از مردان عنکبوتی می‌شود.","https://image.tmdb.org/t/p/w500/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg"],
+["The Mitchells vs. the Machines","خانواده میچل در برابر ماشین‌ها",2021,"انیمیشن","خانواده‌ای در یک ماجرای فناورانه گرفتار می‌شوند.","https://image.tmdb.org/t/p/w500/mI2Di7HmskQQ34kz0iau6J1vr70.jpg"],
+["The Wild Robot","ربات وحشی",2024,"انیمیشن","رباتی در طبیعت با دنیایی تازه آشنا می‌شود.","https://image.tmdb.org/t/p/w500/wTnV3PCVW5O92JMrFvvrRcV39RU.jpg"],
+["Elemental","المنتال",2023,"انیمیشن","داستان دو شخصیت از عناصر متفاوت.","https://image.tmdb.org/t/p/w500/4Y1WNkd88JXmGfhtWR7dmDAo1T2.jpg"],
+["The Bad Guys","بچه‌های بد",2022,"انیمیشن","گروهی خلافکار تصمیم می‌گیرند مسیرشان را عوض کنند.","https://image.tmdb.org/t/p/w500/7qop80YfuO0BwJa1uXk1DXUUEwv.jpg"]
+];
+
+const series = [
+["Stranger Things","چیزهای عجیب",2016,"علمی تخیلی","گروهی نوجوان با رازهایی عجیب روبه‌رو می‌شوند.","https://image.tmdb.org/t/p/w500/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg"],
+["Wednesday","ونزدی",2022,"معمایی","دختری باهوش در مدرسه‌ای متفاوت به دنبال رازها می‌رود.","https://image.tmdb.org/t/p/w500/9PFonBhy4cQy7Jz20NpMygczOkv.jpg"],
+["Sherlock","شرلوک",2010,"معمایی","کارآگاهی مشهور معماهای پیچیده را حل می‌کند.","https://image.tmdb.org/t/p/w500/7WTsnHkbA0FaG6R9twfFde0I9hl.jpg"],
+["The Mandalorian","مندلورین",2019,"علمی تخیلی","ماجراجویی در دنیای جنگ ستارگان.","https://image.tmdb.org/t/p/w500/eU1i6eHXlzMOlEq0ku1Rzq7Y4wA.jpg"],
+["Loki","لوکی",2021,"فانتزی","ماجراهای شخصیت لوکی در جهان‌های گوناگون.","https://image.tmdb.org/t/p/w500/voHUmluYmKyleFkTu3lOXQG702u.jpg"],
+["The Last of Us","آخرین بازمانده از ما",2023,"درام","سفری دشوار در جهانی تغییر یافته.","https://image.tmdb.org/t/p/w500/uKvVjHNqB5VmOrdxqAt2F7J78ED.jpg"],
+["The Queen's Gambit","گامبی وزیر",2020,"درام","داستان دختری با استعداد شطرنج.","https://image.tmdb.org/t/p/w500/zU0htwkhNvBQdVSIKB9s6hgVeFK.jpg"],
+["Planet Earth","سیاره زمین",2006,"مستند","نگاهی شگفت‌انگیز به طبیعت زمین.","https://image.tmdb.org/t/p/w500/8HsyW3i1tJj5hQq8Q6Y9j7Wf9.jpg"],
+["Avatar: The Last Airbender","آواتار: آخرین بادافزار",2005,"فانتزی","ماجراهای آنگ و دوستانش در جهانی چهارعنصری.","https://image.tmdb.org/t/p/w500/cHFZA8Tlv03nKTGXhLOYOLtqoSm.jpg"],
+["The Good Place","جای خوب",2016,"کمدی","داستانی طنزآمیز درباره انتخاب‌ها و اخلاق.","https://image.tmdb.org/t/p/w500/qIhsuhoIYR5yTnDta0IL4senbeN.jpg"],
+["Wednesday","ونزدی",2022,"معمایی","ماجراهای ونزدی در مدرسه نورمور.","https://image.tmdb.org/t/p/w500/9PFonBhy4cQy7Jz20NpMygczOkv.jpg"],
+["A Series of Unfortunate Events","ماجراهای ناگوار",2017,"ماجراجویی","سه خواهر و برادر با ماجراهایی عجیب روبه‌رو می‌شوند.","https://image.tmdb.org/t/p/w500/r2Kq5f6b0tq3Q1x8e5JQ5Z1.jpg"]
+];
+
+let allItems = [
+  ...cinemaMovies.map(x=>({...makeItem(x,"cinema")})),
+  ...animations.map(x=>({...makeItem(x,"animation")})),
+  ...series.map(x=>({...makeItem(x,"series")}))
+];
+
+function makeItem(x,type){
+ return {id:type+"-"+x[0],title:x[0],fa:x[1],year:x[2],genre:x[3],desc:x[4],poster:x[5],type};
+}
+
+let favorites = [];
+try{favorites=JSON.parse(localStorage.getItem("filmora-favorites")||"[]")}catch(e){favorites=[]}
+let favoritesOnly=false;
+
+const names={cinema:"فیلم سینمایی",animation:"انیمیشن",series:"سریال"};
+const search=document.getElementById("search");
+const genre=document.getElementById("genre");
+const sort=document.getElementById("sort");
+
+function posterFallback(item){
+ return "https://placehold.co/400x600/172033/e8b84b?text="+encodeURIComponent(item.fa);
+}
+
+function cardHTML(item){
+ const isFav=favorites.includes(item.id);
+ return `
+ <article class="card">
+   <img class="poster" src="${item.poster}" alt="${item.fa}"
+    onerror="this.onerror=null;this.src='${posterFallback(item)}'">
+   <div class="card-info">
+    <h3 title="${item.fa}">${item.fa}</h3>
+    <div class="meta">${item.year} | ${item.genre}</div>
+    <div class="card-actions">
+      <button class="details-btn" onclick="showDetails('${item.id}')">جزئیات</button>
+      <button class="fav ${isFav?'active':''}" onclick="toggleFavorite('${item.id}')" title="علاقه‌مندی">♥</button>
+    </div>
+   </div>
+ </article>`;
+}
+
+function getFiltered(){
+ let q=search.value.trim().toLowerCase();
+ let g=genre.value;
+ let list=allItems.filter(x=>{
+  let matchText=(x.title+" "+x.fa+" "+x.year+" "+x.genre).toLowerCase().includes(q);
+  let matchGenre=g==="all"||x.genre===g;
+  let matchFav=!favoritesOnly||favorites.includes(x.id);
+  return matchText&&matchGenre&&matchFav;
+ });
+ if(sort.value==="az")list.sort((a,b)=>a.fa.localeCompare(b.fa,"fa"));
+ if(sort.value==="za")list.sort((a,b)=>b.fa.localeCompare(a.fa,"fa"));
+ if(sort.value==="new")list.sort((a,b)=>b.year-a.year);
+ if(sort.value==="old")list.sort((a,b)=>a.year-b.year);
+ return list;
+}
+
+function render(){
+ let list=getFiltered();
+ let groups={
+  cinema:list.filter(x=>x.type==="cinema"),
+  animation:list.filter(x=>x.type==="animation"),
+  series:list.filter(x=>x.type==="series")
+ };
+ renderGroup("cinema",groups.cinema);
+ renderGroup("animation",groups.animation);
+ renderGroup("series",groups.series);
+ document.getElementById("favorites-section").style.display=favoritesOnly?"block":"none";
+ if(favoritesOnly){
+  let favs=list.filter(x=>favorites.includes(x.id));
+  document.getElementById("favorites-grid").innerHTML=favs.length?favs.map(cardHTML).join(""):'<div class="empty">هنوز اثری به علاقه‌مندی‌ها اضافه نکرده‌ای.</div>';
+  document.getElementById("fav-count").textContent=favs.length+" اثر";
+ }
+}
+function renderGroup(type,list){
+ document.getElementById(type+"-grid").innerHTML=list.length?list.map(cardHTML).join(""):'<div class="empty">موردی پیدا نشد.</div>';
+ document.getElementById(type+"-count").textContent=list.length+" اثر";
+}
+
+function toggleFavorite(id){
+ if(favorites.includes(id))favorites=favorites.filter(x=>x!==id);
+ else favorites.push(id);
+ localStorage.setItem("filmora-favorites",JSON.stringify(favorites));
+ render();
+}
+function showFavorites(){
+ favoritesOnly=!favoritesOnly;
+ if(favoritesOnly){
+  document.getElementById("favorites-section").scrollIntoView({behavior:"smooth"});
+ }else{
+  document.getElementById("home").scrollIntoView({behavior:"smooth"});
+ }
+ render();
+}
+
+function showDetails(id){
+ let item=allItems.find(x=>x.id===id);
+ if(!item)return;
+ let imdb="https://www.imdb.com/find/?q="+encodeURIComponent(item.title);
+ document.getElementById("modal-content").innerHTML=`
+  <div class="modal-top">
+   <img class="modal-poster" src="${item.poster}" alt="${item.fa}"
+    onerror="this.onerror=null;this.src='${posterFallback(item)}'">
+   <div>
+    <span class="tag">${names[item.type]}</span>
+    <h2>${item.fa}</h2>
+    <div class="pill">${item.year}</div>
+    <div class="pill">${item.genre}</div>
+    <p>${item.desc}</p>
+    <button class="primary" onclick="toggleFavorite('${item.id}');showDetails('${item.id}')">
+      ${favorites.includes(item.id)?"حذف از علاقه‌مندی‌ها":"افزودن به علاقه‌مندی‌ها ♥"}
+    </button>
+   </div>
+  </div>
+  <p><a href="${imdb}" target="_blank" rel="noopener" style="color:#e8b84b">مشاهده اطلاعات در IMDb ↗</a></p>`;
+ document.getElementById("modal").classList.add("show");
+}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+function closeOutside(e){if(e.target.id==="modal")closeModal()}
+
+search.addEventListener("input",()=>{favoritesOnly=false;render()});
+genre.addEventListener("change",()=>{favoritesOnly=false;render()});
+sort.addEventListener("change",render);
+render();
+</script>
+</body>
+</html>
